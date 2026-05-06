@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老吃家 - UI设计原型</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        .color-scheme-1 {
+            --primary: #FF6B35;
+            --secondary: #F7C59F;
+            --text: #333333;
+            --bg: #FAFAFA;
+        }
+        
+        .color-scheme-2 {
+            --primary: #C81D25;
+            --secondary: #FFDAB9;
+            --text: #222222;
+            --bg: #FAFAFA;
+        }
+        
+        .color-scheme-3 {
+            --primary: #88B04B;
+            --secondary: #F0EAD6;
+            --text: #333333;
+            --bg: #FAFAFA;
+        }
+        
+        .scheme-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .scheme-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .scheme-btn.active {
+            transform: scale(1.1);
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+        }
+        
+        .card {
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+        
+        .star-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .star-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .star-btn.active {
+            transform: scale(1.15);
+        }
+        
+        .food-image {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .phone-frame {
+            box-shadow: 0 50px 100px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05);
+        }
+        
+        .rating-text {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+        <!-- Header -->
+        <div class="text-center mb-12 fade-in">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">老吃家</h1>
+            <p class="text-gray-500 text-lg">UI 设计原型 - 三种主色调方案</p>
+            <p class="text-gray-400 mt-2">设计风格：极简主义 · 苹果风</p>
+        </div>
+        
+        <!-- Color Scheme Selector -->
+        <div class="flex justify-center gap-6 mb-16 fade-in">
+            <button onclick="setScheme(1)" id="scheme1" class="scheme-btn active px-8 py-4 rounded-2xl border-2 border-gray-200 bg-white hover:border-orange-300">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full" style="background: #FF6B35"></div>
+                    <div class="text-left">
+                        <div class="font-semibold text-gray-800">暖橙系</div>
+                        <div class="text-xs text-gray-400">温暖有食欲</div>
+                    </div>
+                </div>
+            </button>
+            
+            <button onclick="setScheme(2)" id="scheme2" class="scheme-btn px-8 py-4 rounded-2xl border-2 border-gray-200 bg-white hover:border-red-300">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full" style="background: #C81D25"></div>
+                    <div class="text-left">
+                        <div class="font-semibold text-gray-800">酒红系</div>
+                        <div class="text-xs text-gray-400">高级有质感</div>
+                    </div>
+                </div>
+            </button>
+            
+            <button onclick="setScheme(3)" id="scheme3" class="scheme-btn px-8 py-4 rounded-2xl border-2 border-gray-200 bg-white hover:border-green-300">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full" style="background: #88B04B"></div>
+                    <div class="text-left">
+                        <div class="font-semibold text-gray-800">芥末绿系</div>
+                        <div class="text-xs text-gray-400">清新健康</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+        
+        <!-- Phone Frames Demo -->
+        <div class="grid lg:grid-cols-3 gap-8 items-start">
+            <!-- Home Screen -->
+            <div id="phone1" class="color-scheme-1">
+                <div class="phone-frame bg-white rounded-[40px] overflow-hidden w-full max-w-sm mx-auto">
+                    <div class="p-4" style="background: var(--bg);">
+                        <!-- Notch -->
+                        <div class="w-32 h-6 bg-gray-900 rounded-full mx-auto mb-6"></div>
+                        
+                        <!-- Header -->
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <p class="text-xs" style="color: var(--text); opacity: 0.5;">发现美食</p>
+                                <h2 class="text-2xl font-bold" style="color: var(--text);">推荐</h2>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                                <span class="text-xl">👤</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Search -->
+                        <div class="bg-white rounded-2xl px-4 py-3 mb-6 shadow-sm flex items-center gap-3">
+                            <span class="text-gray-400">🔍</span>
+                            <span class="text-gray-400 text-sm">搜索店铺...</span>
+                        </div>
+                        
+                        <!-- Feed Cards -->
+                        <div class="space-y-4">
+                            <!-- Card 1 -->
+                            <div class="card bg-white rounded-3xl overflow-hidden shadow-sm">
+                                <div class="food-image h-48 bg-gradient-to-br from-orange-100 to-yellow-100 flex items-center justify-center">
+                                    <span class="text-6xl">🍜</span>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h3 class="font-bold text-lg" style="color: var(--text);">老北京炸酱面</h3>
+                                        <div class="flex items-center gap-1">
+                                            <span style="color: var(--primary);">★</span>
+                                            <span class="font-semibold text-sm" style="color: var(--primary);">4.8</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm" style="color: var(--text); opacity: 0.6;">地道北京味儿，酱香浓郁</p>
+                                    <div class="flex items-center gap-4 mt-3">
+                                        <div class="flex items-center gap-1 text-xs" style="color: var(--text); opacity: 0.5;">
+                                            <span>❤️</span>
+                                            <span>128</span>
+                                        </div>
+                                        <div class="flex items-center gap-1 text-xs" style="color: var(--text); opacity: 0.5;">
+                                            <span>💬</span>
+                                            <span>32</span>
+                                        </div>
+                                        <div class="flex items-center gap-1 text-xs" style="color: var(--text); opacity: 0.5;">
+                                            <span>📝</span>
+                                            <span>15人评价</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 2 -->
+                            <div class="card bg-white rounded-3xl overflow-hidden shadow-sm">
+                                <div class="food-image h-48 bg-gradient-to-br from-red-100 to-pink-100 flex items-center justify-center">
+                                    <span class="text-6xl">🥘</span>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h3 class="font-bold text-lg" style="color: var(--text);">川味火锅</h3>
+                                        <div class="flex items-center gap-1">
+                                            <span style="color: var(--primary);">★</span>
+                                            <span class="font-semibold text-sm" style="color: var(--primary);">4.6</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm" style="color: var(--text); opacity: 0.6;">麻辣鲜香，正宗川渝味道</p>
+                                    <div class="flex items-center gap-4 mt-3">
+                                        <div class="flex items-center gap-1 text-xs" style="color: var(--text); opacity: 0.5;">
+                                            <span>❤️</span>
+                                            <span>256</span>
+                                        </div>
+                                        <div class="flex items-center gap-1 text-xs" style="color: var(--text); opacity: 0.5;">
+                                            <span>💬</span>
+                                            <span>68</span>
+                                        </div>
+                                        <div class="flex items-center gap-1 text-xs" style="color: var(--text); opacity: 0.5;">
+                                            <span>📝</span>
+                                            <span>42人评价</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Bottom Nav -->
+                        <div class="flex justify-around mt-8 pt-4 border-t border-gray-100">
+                            <div class="text-center">
+                                <div class="text-2xl" style="color: var(--primary);">🏠</div>
+                                <span class="text-xs block mt-1" style="color: var(--primary);">首页</span>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl text-gray-300">🔍</div>
+                                <span class="text-xs block mt-1 text-gray-300">发现</span>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-12 h-12 rounded-full flex items-center justify-center text-white text-2xl" style="background: var(--primary);">+</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl text-gray-300">🔔</div>
+                                <span class="text-xs block mt-1 text-gray-300">消息</span>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl text-gray-300">👤</div>
+                                <span class="text-xs block mt-1 text-gray-300">我的</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center mt-4 font-medium text-gray-600">首页推荐流</p>
+            </div>
+            
+            <!-- Post Detail Screen -->
+            <div id="phone2" class="color-scheme-1">
+                <div class="phone-frame bg-white rounded-[40px] overflow-hidden w-full max-w-sm mx-auto">
+                    <div class="p-4" style="background: var(--bg);">
+                        <!-- Notch -->
+                        <div class="w-32 h-6 bg-gray-900 rounded-full mx-auto mb-6"></div>
+                        
+                        <!-- Header -->
+                        <div class="flex items-center justify-between mb-4">
+                            <button class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center">←</button>
+                            <div class="flex gap-3">
+                                <button class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center">📤</button>
+                                <button class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center">⭐</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Post Content -->
+                        <div class="bg-white rounded-3xl overflow-hidden shadow-sm mb-4">
+                            <div class="food-image h-56 bg-gradient-to-br from-orange-100 to-yellow-100 flex items-center justify-center">
+                                <span class="text-7xl">🍜</span>
+                            </div>
+                            <div class="p-5">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">👤</div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold" style="color: var(--text);">美食达人小王</p>
+                                        <p class="text-xs" style="color: var(--text); opacity: 0.5;">2小时前</p>
+                                    </div>
+                                </div>
+                                
+                                <h2 class="text-xl font-bold mb-2" style="color: var(--text);">老北京炸酱面</h2>
+                                <p class="text-sm leading-relaxed mb-4" style="color: var(--text); opacity: 0.7;">这家炸酱面真的绝了！酱香味儿特别浓，面条劲道，配菜新鲜，强烈推荐！</p>
+                                
+                                <div class="flex gap-2 mb-4">
+                                    <span class="px-3 py-1 rounded-full text-xs" style="background: var(--secondary); color: var(--primary);">面食</span>
+                                    <span class="px-3 py-1 rounded-full text-xs" style="background: var(--secondary); color: var(--primary);">北京菜</span>
+                                    <span class="px-3 py-1 rounded-full text-xs" style="background: var(--secondary); color: var(--primary);">必吃</span>
+                                </div>
+                                
+                                <div class="flex items-center gap-3 text-sm" style="color: var(--text); opacity: 0.6;">
+                                    <span>📍 北京市朝阳区xxx街道</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Rating Component -->
+                        <div class="bg-white rounded-3xl p-5 shadow-sm mb-4">
+                            <div class="text-center mb-4">
+                                <p class="text-sm mb-2" style="color: var(--text); opacity: 0.6;">你去吃过了吗？</p>
+                                <p id="ratingText1" class="rating-text text-xl font-bold mb-3" style="color: var(--primary);">选择评分</p>
+                                <div class="flex justify-center gap-2">
+                                    <button onclick="setRating(1, 1)" class="star-btn text-3xl" data-rating="1">☆</button>
+                                    <button onclick="setRating(1, 2)" class="star-btn text-3xl" data-rating="2">☆</button>
+                                    <button onclick="setRating(1, 3)" class="star-btn text-3xl" data-rating="3">☆</button>
+                                    <button onclick="setRating(1, 4)" class="star-btn text-3xl" data-rating="4">☆</button>
+                                    <button onclick="setRating(1, 5)" class="star-btn text-3xl" data-rating="5">☆</button>
+                                </div>
+                            </div>
+                            <button class="w-full py-3 rounded-2xl text-white font-semibold" style="background: var(--primary);">我去吃过了</button>
+                        </div>
+                        
+                        <!-- Bad Reviews Section -->
+                        <div class="bg-white rounded-3xl p-5 shadow-sm border-2" style="border-color: #EF4444;">
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="font-bold flex items-center gap-2" style="color: #EF4444;">⚠️ 差评区</h3>
+                                <button class="text-sm font-medium" style="color: #EF4444;">展开</button>
+                            </div>
+                            <div class="bg-red-50 rounded-xl p-3">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-sm">★</span>
+                                    <span class="font-semibold text-sm text-red-600">拉完了</span>
+                                </div>
+                                <p class="text-sm text-red-800">味道一般，服务态度不太好...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center mt-4 font-medium text-gray-600">推荐详情 · 评分组件</p>
+            </div>
+            
+            <!-- Profile Screen -->
+            <div id="phone3" class="color-scheme-1">
+                <div class="phone-frame bg-white rounded-[40px] overflow-hidden w-full max-w-sm mx-auto">
+                    <div class="p-4" style="background: var(--bg);">
+                        <!-- Notch -->
+                        <div class="w-32 h-6 bg-gray-900 rounded-full mx-auto mb-6"></div>
+                        
+                        <!-- Profile Header -->
+                        <div class="text-center mb-6">
+                            <div class="w-24 h-24 rounded-full bg-gradient-to-br mx-auto mb-4 flex items-center justify-center text-5xl" style="background: var(--secondary);">👨‍🍳</div>
+                            <h2 class="text-2xl font-bold mb-1" style="color: var(--text);">美食达人小王</h2>
+                            <p class="text-sm" style="color: var(--text); opacity: 0.5;">资深吃货 · 发布52篇推荐</p>
+                        </div>
+                        
+                        <!-- Foodie Points Card -->
+                        <div class="bg-gradient-to-br rounded-3xl p-6 mb-6 text-white" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);">
+                            <p class="text-sm opacity-80 mb-1">吃货分余额</p>
+                            <p class="text-5xl font-bold mb-2">128</p>
+                            <div class="flex justify-between text-sm opacity-80">
+                                <span>发布消耗: -10分/篇</span>
+                                <span>获得奖励: +5-15分</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Stats -->
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="bg-white rounded-2xl p-4 text-center shadow-sm">
+                                <p class="text-2xl font-bold" style="color: var(--primary);">52</p>
+                                <p class="text-xs" style="color: var(--text); opacity: 0.5;">发布推荐</p>
+                            </div>
+                            <div class="bg-white rounded-2xl p-4 text-center shadow-sm">
+                                <p class="text-2xl font-bold" style="color: var(--primary);">38</p>
+                                <p class="text-xs" style="color: var(--text); opacity: 0.5;">品尝评价</p>
+                            </div>
+                            <div class="bg-white rounded-2xl p-4 text-center shadow-sm">
+                                <p class="text-2xl font-bold" style="color: var(--primary);">128</p>
+                                <p class="text-xs" style="color: var(--text); opacity: 0.5;">获赞</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Menu -->
+                        <div class="bg-white rounded-3xl overflow-hidden shadow-sm">
+                            <div class="flex items-center gap-4 p-4 border-b border-gray-100">
+                                <span class="text-2xl">📝</span>
+                                <span class="flex-1 font-medium" style="color: var(--text);">我的推荐</span>
+                                <span style="color: var(--text); opacity: 0.3;">→</span>
+                            </div>
+                            <div class="flex items-center gap-4 p-4 border-b border-gray-100">
+                                <span class="text-2xl">⭐</span>
+                                <span class="flex-1 font-medium" style="color: var(--text);">我的收藏</span>
+                                <span style="color: var(--text); opacity: 0.3;">→</span>
+                            </div>
+                            <div class="flex items-center gap-4 p-4 border-b border-gray-100">
+                                <span class="text-2xl">💰</span>
+                                <span class="flex-1 font-medium" style="color: var(--text);">吃货分记录</span>
+                                <span style="color: var(--text); opacity: 0.3;">→</span>
+                            </div>
+                            <div class="flex items-center gap-4 p-4">
+                                <span class="text-2xl">⚙️</span>
+                                <span class="flex-1 font-medium" style="color: var(--text);">设置</span>
+                                <span style="color: var(--text); opacity: 0.3;">→</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center mt-4 font-medium text-gray-600">个人中心 · 吃货分</p>
+            </div>
+        </div>
+        
+        <!-- Design Notes -->
+        <div class="mt-16 max-w-3xl mx-auto">
+            <div class="bg-white rounded-3xl p-8 shadow-sm">
+                <h3 class="text-xl font-bold mb-6 text-gray-800">设计说明</h3>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-semibold mb-3 text-gray-700">设计风格</h4>
+                        <ul class="text-sm text-gray-600 space-y-2">
+                            <li>• 极简主义，大量留白</li>
+                            <li>• 圆角卡片，柔和阴影</li>
+                            <li>• 清晰的视觉层级</li>
+                            <li>• 流畅的微交互动画</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold mb-3 text-gray-700">特色功能</h4>
+                        <ul class="text-sm text-gray-600 space-y-2">
+                            <li>• 五星评分特色文案</li>
+                            <li>• 差评区单独展示</li>
+                            <li>• 吃货分激励机制</li>
+                            <li>• 评价复议功能</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-6 pt-6 border-t border-gray-100">
+                    <h4 class="font-semibold mb-3 text-gray-700">五星评分文案</h4>
+                    <div class="flex flex-wrap gap-4">
+                        <span class="px-4 py-2 rounded-full bg-red-100 text-red-700 text-sm">★ 拉完了</span>
+                        <span class="px-4 py-2 rounded-full bg-orange-100 text-orange-700 text-sm">★★ NPC</span>
+                        <span class="px-4 py-2 rounded-full bg-yellow-100 text-yellow-700 text-sm">★★★ 人上人</span>
+                        <span class="px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm">★★★★ 顶级</span>
+                        <span class="px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm">★★★★★ 夯爆了</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScheme = 1;
+        let currentRating1 = 0;
+        let currentRating2 = 0;
+        
+        const ratingTexts = {
+            0: '选择评分',
+            1: '拉完了',
+            2: 'NPC',
+            3: '人上人',
+            4: '顶级',
+            5: '夯爆了'
+        };
+        
+        function setScheme(schemeNum) {
+            currentScheme = schemeNum;
+            
+            document.querySelectorAll('.scheme-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('scheme' + schemeNum).classList.add('active');
+            
+            const phones = ['phone1', 'phone2', 'phone3'];
+            phones.forEach(phoneId => {
+                const phone = document.getElementById(phoneId);
+                phone.classList.remove('color-scheme-1', 'color-scheme-2', 'color-scheme-3');
+                phone.classList.add('color-scheme-' + schemeNum);
+            });
+        }
+        
+        function setRating(phoneNum, rating) {
+            const phoneId = 'phone' + phoneNum;
+            const phone = document.getElementById(phoneId);
+            const stars = phone.querySelectorAll('.star-btn');
+            const textEl = phoneId === 'phone1' ? document.getElementById('ratingText1') : document.getElementById('ratingText2');
+            
+            if (phoneNum === 1) {
+                currentRating1 = rating;
+            } else {
+                currentRating2 = rating;
+            }
+            
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.textContent = '★';
+                    star.style.color = getComputedStyle(phone).getPropertyValue('--primary');
+                    star.classList.add('active');
+                } else {
+                    star.textContent = '☆';
+                    star.style.color = '#D1D5DB';
+                    star.classList.remove('active');
+                }
+            });
+            
+            textEl.textContent = ratingTexts[rating];
+        }
+    </script>
+</body>
+</html>
