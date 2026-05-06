@@ -4,16 +4,27 @@ import { RatingStars } from '../components/RatingStars';
 interface ProfilePageProps {
   onRecommendationClick: (id: string) => void;
   onEditProfile: () => void;
+  onFavoritesClick: () => void;
+  onMyReviewsClick: () => void;
+  onAchievementsClick: () => void;
+  onSettingsClick: () => void;
 }
 
-export function ProfilePage({ onRecommendationClick, onEditProfile }: ProfilePageProps) {
+export function ProfilePage({ 
+  onRecommendationClick, 
+  onEditProfile,
+  onFavoritesClick,
+  onMyReviewsClick,
+  onAchievementsClick,
+  onSettingsClick,
+}: ProfilePageProps) {
   const userRecommendations = mockRecommendations.filter(r => r.author.id === mockUser.id);
 
   const menuItems = [
-    { icon: '📋', label: '我的收藏', count: 12 },
-    { icon: '💬', label: '我的评论', count: 28 },
-    { icon: '🏆', label: '我的成就', count: 5 },
-    { icon: '⚙️', label: '设置', count: 0 },
+    { icon: '📋', label: '我的收藏', count: 12, onClick: onFavoritesClick },
+    { icon: '💬', label: '我的评论', count: 28, onClick: onMyReviewsClick },
+    { icon: '🏆', label: '我的成就', count: 5, onClick: onAchievementsClick },
+    { icon: '⚙️', label: '设置', count: 0, onClick: onSettingsClick },
   ];
 
   return (
@@ -70,7 +81,9 @@ export function ProfilePage({ onRecommendationClick, onEditProfile }: ProfilePag
             style={{ width: `${Math.min((mockUser.foodScore / 500) * 100, 100)}%` }}
           />
         </div>
-        <p className="text-xs text-gray-500 mt-2">距离下一等级还需 {Math.max(0, 300 - mockUser.foodScore)} 分</p>
+        <p className="text-xs text-gray-500 mt-2">
+          {mockUser.foodScore >= 300 ? '恭喜已达到顶级吃货！' : `距离下一等级还需 ${Math.max(0, 300 - mockUser.foodScore)} 分`}
+        </p>
       </div>
 
       <section className="px-4 py-4">
@@ -78,7 +91,8 @@ export function ProfilePage({ onRecommendationClick, onEditProfile }: ProfilePag
           {menuItems.map((item, index) => (
             <button
               key={index}
-              className="flex flex-col items-center gap-2 p-3 bg-white rounded-xl shadow-sm border border-gray-50 hover:shadow-md transition-all"
+              onClick={item.onClick}
+              className="flex flex-col items-center gap-2 p-3 bg-white rounded-xl shadow-sm border border-gray-50 hover:shadow-md transition-all active:scale-95"
             >
               <span className="text-2xl">{item.icon}</span>
               <span className="text-sm font-medium text-gray-700">{item.label}</span>
@@ -96,38 +110,46 @@ export function ProfilePage({ onRecommendationClick, onEditProfile }: ProfilePag
           <button className="text-sm text-primary-600">查看全部</button>
         </div>
         <div className="space-y-4">
-          {userRecommendations.map((rec) => (
-            <div 
-              key={rec.id}
-              onClick={() => onRecommendationClick(rec.id)}
-              className="bg-white rounded-xl p-4 shadow-sm border border-gray-50 cursor-pointer hover:shadow-md transition-all"
-            >
-              <div className="flex gap-4">
-                <img 
-                  src={rec.imageUrl} 
-                  alt={rec.title}
-                  className="w-24 h-24 rounded-lg object-cover"
-                />
-                <div className="flex-1">
-                  <h3 className="font-semibold text-gray-800 line-clamp-2">{rec.title}</h3>
-                  <div className="flex items-center gap-2 mt-2">
-                    <RatingStars rating={rec.rating} size="sm" />
-                    <span className="text-sm text-gray-500">{rec.reviewCount}评论</span>
-                  </div>
-                  <div className="flex flex-wrap gap-1 mt-2">
-                    {rec.tags.slice(0, 2).map((tag) => (
-                      <span 
-                        key={tag}
-                        className="px-2 py-0.5 bg-primary-50 text-primary-600 text-xs rounded-full"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+          {userRecommendations.length > 0 ? (
+            userRecommendations.map((rec) => (
+              <div 
+                key={rec.id}
+                onClick={() => onRecommendationClick(rec.id)}
+                className="bg-white rounded-xl p-4 shadow-sm border border-gray-50 cursor-pointer hover:shadow-md transition-all active:scale-[0.98]"
+              >
+                <div className="flex gap-4">
+                  <img 
+                    src={rec.imageUrl} 
+                    alt={rec.title}
+                    className="w-24 h-24 rounded-lg object-cover flex-shrink-0"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-gray-800 line-clamp-2">{rec.title}</h3>
+                    <div className="flex items-center gap-2 mt-2">
+                      <RatingStars rating={rec.rating} size="sm" />
+                      <span className="text-sm text-gray-500">{rec.reviewCount}评论</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {rec.tags.slice(0, 2).map((tag) => (
+                        <span 
+                          key={tag}
+                          className="px-2 py-0.5 bg-primary-50 text-primary-600 text-xs rounded-full"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <div className="flex flex-col items-center justify-center py-12 bg-white rounded-xl">
+              <div className="text-5xl mb-3">🍽️</div>
+              <p className="text-gray-500">还没有发布过推荐</p>
+              <p className="text-gray-400 text-sm mt-1">快去分享你的美食体验吧</p>
             </div>
-          ))}
+          )}
         </div>
       </section>
     </div>

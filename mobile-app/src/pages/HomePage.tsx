@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { RecommendationCard } from '../components/RecommendationCard';
-import { RatingStars } from '../components/RatingStars';
 import { mockRecommendations, mockTopics, mockUser } from '../data/mockData';
 
 interface HomePageProps {

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { mockTopics, mockRecommendations } from '../data/mockData';
 import { RecommendationCard } from '../components/RecommendationCard';
-import { RatingStars } from '../components/RatingStars';
 
 interface DiscoverPageProps {
   onRecommendationClick: (id: string) => void;
